@@ -53,4 +53,4 @@ with open("D:/Personal/GitHub/AE/Grafik/data.txt", 'w') as file:
 
     file.write('var ticker = ["{}"];'.format(FinamParser.ticker) + '\n')
 
-
+import BatRanner
