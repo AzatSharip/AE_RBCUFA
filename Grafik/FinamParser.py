@@ -2,12 +2,12 @@ from urllib.parse import urlencode
 from urllib.request import urlopen
 from datetime import datetime
 
-# def Parser_Finam():
+
 #пользовательские переменные
-ticker="BANE" #задаём тикер
+ticker="SBER" #задаём тикер
 period=8 # задаём период. Выбор из: 'tick': 1, 'min': 2, '5min': 3, '10min': 4, '15min': 5, '30min': 6, 'hour': 7, 'daily': 8, 'week': 9, 'month': 10
-start = "25.02.2020" #с какой даты начинать тянуть котировки
-end = "10.03.2020" #финальная дата, по которую тянуть котировки
+start = "20.02.2020" #с какой даты начинать тянуть котировки
+end = "05.03.2020" #финальная дата, по которую тянуть котировки
 ########
 periods={'tick': 1, 'min': 2, '5min': 3, '10min': 4, '15min': 5, '30min': 6, 'hour': 7, 'daily': 8, 'week': 9, 'month': 10}
 print ("ticker="+ticker+"; period="+str(period)+"; start="+start+"; end="+end)
