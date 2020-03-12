@@ -2,7 +2,7 @@ from urllib.parse import urlencode
 from urllib.request import urlopen
 from datetime import datetime
 import subprocess
-
+import sys
 
 
 #пользовательские переменные
@@ -129,6 +129,6 @@ else:
     print("Error!")
 
 
-#https://golos.io/@pythono/python-kompilyaciya-skriptov-v-exe-fail
 
-import BatRanner
+
+sys.exit()

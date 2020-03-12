@@ -1,0 +1,1 @@
+pyinstaller --onedir --onefile --name=downblog "D:\Personal\GitHub\AE\Grafik\Get\Grf.py"
