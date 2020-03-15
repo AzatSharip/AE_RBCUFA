@@ -2,16 +2,18 @@ import requests
 import sys
 from lxml import html
 from bs4 import BeautifulSoup
+import re
 
-# url = 'https://www.cbr.ru/'
-# r = requests.get(url)
-# with open('test.html', 'wb') as output_file:
-#     output_file.write(r.text.encode('utf8'))
+url = 'https://www.cbr.ru/'
+r = requests.get(url)
+with open('cbrf.html', 'wb') as output_file:
+    output_file.write(r.text.encode('utf8'))
 
-with open('test.html', 'rb') as output_file:
+with open('cbrf.html', 'rb') as output_file:
     text = output_file.read()
 
     soup = BeautifulSoup(text, features="lxml")
+    #print(soup.prettify())
 
     doll = soup.find_all('div', {'class': 'w_data_wrap'})[0]
     euro = soup.find_all('div', {'class': 'w_data_wrap'})[1]
@@ -33,24 +35,22 @@ with open('test.html', 'rb') as output_file:
         euro_value = i
 
     #Вычленяем дату
-    date = soup.find_all('div', {'class': 'content'})
-    a = date.find('th', {'class': 'title'})
-    # for d in date:
-    #     a = d.find_all('th', {'class': 'title'})
-    # date = date.find('span', {'class': 'nowrap'})
-    print(a)
+    # content = soup.find_all('div', {'class': 'content'})[2]
+    widget = soup.find('div', {'id': 'widget_exchange'})
+    content = widget.find('div', {'class': 'content'})
+    date = content.find_all('a')[1].get_text()
 
-    # for i in date:
-    #     date = i
 
-    # #Убираем лишний текст из даты
-    # indx = date.index(' ')
-    # date = date[indx:]
-    #
-    #
-    # print('Курсы валют установленные ЦБ РФ на{}'.format(date))
-    # print('Доллар -- Стоимость: {}, динамика: {}'.format(doll_val, doll_dynamics))
-    # print('Евро -- Стоимость: {}, динамика: {}'.format(euro_value, euro_dynamics))
+
+
+
+
+
+
+
+    print('Курсы валют установленные ЦБ РФ на {}'.format(date))
+    print('Доллар -- Стоимость: {}, динамика: {}'.format(doll_val, doll_dynamics))
+    print('Евро -- Стоимость: {}, динамика: {}'.format(euro_value, euro_dynamics))
 
 
 
