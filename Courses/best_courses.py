@@ -15,28 +15,32 @@ with open('best.html', 'rb') as output_file:
 
     # тут лучшие значения покупки/продажи доллара/евро
     b_k = soup.find_all('td', {'class': 'b-k'})
-    doll_buy = b_k[0].get_text()
-    doll_sale = b_k[2].get_text()
-    euro_buy = b_k[1].get_text()
-    euro_sale = b_k[3].get_text()
+    doll_buy = {b_k[0].get_text()}
+    doll_sale = {b_k[2].get_text()}
+    euro_buy = {b_k[1].get_text()}
+    euro_sale = {b_k[3].get_text()}
+
+
+
+
 
     # тут все банки
     t_b = soup.find_all('a', {'class': 't-b'})
 
+    #находим банки через значения лучших курсов. Находим родителя у лучших курсов,
+    # потом находим у этого родителя тэг с названием банка,
+    # после вытаскиваем название
     for item in b_k:
-        i = 1
-        print(item.find_parent().find('a', {'class': 't-b'}).get_text())
+        dict = {item.find_parent().find('a', {'class': 't-b'}).get_text() : item.get_text()}
+
+        print(dict)
+        # print(item.find_parent().find('a', {'class': 't-b'}).get_text())
+        # print(item.get_text())
 
 
-    print(doll_buy, doll_sale, euro_buy, euro_sale)
+
+    #print(doll_buy, doll_sale, euro_buy, euro_sale)
     # print(b1)
-
-
-    # with open("data.txt", 'w') as file:
-    #     i = i + 1
-    #
-
-            #
 
 
 
@@ -48,8 +52,6 @@ with open('best.html', 'rb') as output_file:
             # print(item.find_parent().find('a', {'class': 't-b'}).get_text())
             # print(item.get_text())
 
-        # for item in t_b:
-        #     print(item.find_parent('tr'), "\n\n")
 
 
 
