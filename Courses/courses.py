@@ -32,7 +32,7 @@ with open('cbrf.html', 'rb') as output_file:
     euro.ins.decompose()
     euro.i.decompose()
     for i in euro:
-        euro_value = i
+        euro_val = i
 
     #Вычленяем дату
     # content = soup.find_all('div', {'class': 'content'})[2]
@@ -41,9 +41,42 @@ with open('cbrf.html', 'rb') as output_file:
     date = content.find_all('a')[1].get_text()
 
 
-    print('Курсы валют установленные ЦБ РФ на {}'.format(date))
-    print('Доллар -- Стоимость: {}, динамика: {}'.format(doll_val, doll_dynamics))
-    print('Евро -- Стоимость: {}, динамика: {}'.format(euro_value, euro_dynamics))
+
+
+    if doll_dynamics.startswith('-') == True:
+        doll_dynamics = doll_dynamics.replace('- ', '')
+        doll_dynamics = doll_dynamics.replace(',', '.')
+        doll_dynamics_arrow = 100
+    else:
+        doll_dynamics = doll_dynamics.replace('+ ', '')
+        doll_dynamics = doll_dynamics.replace(',', '.')
+        doll_dynamics_arrow = 0
+
+
+    if euro_dynamics.startswith('-') == True:
+        euro_dynamics = euro_dynamics.replace('- ', '')
+        euro_dynamics = euro_dynamics.replace(',', '.')
+        euro_dynamics_arrow = 100
+    else:
+        euro_dynamics = euro_dynamics.replace('+ ', '')
+        euro_dynamics = euro_dynamics.replace(',', '.')
+        euro_dynamics_arrow = 0
+
+
+    doll_dynamics = round(float(doll_dynamics), 2)
+    euro_dynamics = round(float(euro_dynamics), 2)
+
+    doll_val = round(float(doll_val.replace(',', '.')), 2)
+    euro_val = round(float(euro_val.replace(',', '.')), 2)
+
+
+
+
+
+
+    # print('Курсы валют установленные ЦБ РФ на {}'.format(date))
+    # print('Доллар -- Стоимость: {}, динамика: {}'.format(doll_val, doll_dynamics))
+    # print('Евро -- Стоимость: {}, динамика: {}'.format(euro_val, euro_dynamics))
 
 
 
