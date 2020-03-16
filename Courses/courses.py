@@ -41,13 +41,6 @@ with open('cbrf.html', 'rb') as output_file:
     date = content.find_all('a')[1].get_text()
 
 
-
-
-
-
-
-
-
     print('Курсы валют установленные ЦБ РФ на {}'.format(date))
     print('Доллар -- Стоимость: {}, динамика: {}'.format(doll_val, doll_dynamics))
     print('Евро -- Стоимость: {}, динамика: {}'.format(euro_value, euro_dynamics))
