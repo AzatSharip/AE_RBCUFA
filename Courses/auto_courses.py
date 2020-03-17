@@ -11,18 +11,4 @@ def write_data():
         file.write('var comp_euro = ["{}","{}","{}","{}"];'.format(best_courses.euro_buy, best_courses.bank_euro_buy, best_courses.euro_sale, best_courses.bank_euro_sale) + '\n')
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 write_data()
