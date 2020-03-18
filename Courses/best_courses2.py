@@ -4,10 +4,10 @@ from lxml import html
 from bs4 import BeautifulSoup
 import re
 
-# url = 'https://kovalut.ru/kurs/ufa/'
-# r = requests.get(url)
-# with open('best2.html', 'wb') as output_file:
-#     output_file.write(r.text.encode('utf8'))
+url = 'https://kovalut.ru/kurs/ufa/'
+r = requests.get(url)
+with open('best2.html', 'wb') as output_file:
+    output_file.write(r.text.encode('utf8'))
 
 with open('best2.html', 'rb') as output_file:
     text = output_file.read()
@@ -38,23 +38,34 @@ with open('best2.html', 'rb') as output_file:
     # for items in banks:
     #     print(items)
 
-    value = soup.find_all('td', {'class': ['', 'top bot']})
+    value = soup.find_all('td', {'class': ['', 'top bot', 'b-k']})
     banks = soup.find_all('td', {'class': ['tbn top']})
-
-    n = 0
-    i = 0
-    for value in range(118):
-
-        print(value[0:n+4])
+    print('значений', len(value))
+    print('банков', len(banks))
 
 
 
-    dictionary = dict()
+
+    val_list = list()
+    val_dict = dict()
     for v in value:
-        print(v)
+        val_list.append(float(v.get_text().replace(',', '.')))
+    for u in ubc:
+        for val in val_list:
+            if u == val:
+                print(val)
+                print(value[val_list.index(val)].parent('a', {'class': ['t-b']}))
+                val_dict[val] = value[val_list.index(val)].parent('a', {'class': ['t-b']})
 
 
-    print(dictionary)
+    print(val_dict)
+    print()
+
+    val_dict2 = dict()
+    for key, value in val_dict.items():
+
+
+        print(value)
 
 
 
