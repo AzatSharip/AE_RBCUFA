@@ -74,9 +74,9 @@ with open('cbrf.html', 'rb') as output_file:
 
 
 
-    # print('Курсы валют установленные ЦБ РФ на {}'.format(date))
-    # print('Доллар -- Стоимость: {}, динамика: {}'.format(doll_val, doll_dynamics))
-    # print('Евро -- Стоимость: {}, динамика: {}'.format(euro_val, euro_dynamics))
+    print('Курсы валют установленные ЦБ РФ на {}'.format(date))
+    print('Доллар -- Стоимость: {}, динамика: {}'.format(doll_val, doll_dynamics))
+    print('Евро -- Стоимость: {}, динамика: {}'.format(euro_val, euro_dynamics))
 
 
 

@@ -24,60 +24,46 @@ with open('best2.html', 'rb') as output_file:
     ubc = ubc.split(' ')                            # сделали список, использовав пробелы между числами, в качестве разделителя элементов списка
     ubc = [float(chars) for chars in ubc]           # превратили элементы в списке в float
 
-    print(ubc)
+    print('Best buy and sell: ', ubc)
 
 
-
-
-
-    # banks = soup.find_all('tr', {'class': ['wi', 'wigr1']})
-    #
-    # #banks = soup.find_all('td', {'class': ['tbn top']})
-    # print(banks)
-
-    # for items in banks:
-    #     print(items)
-
+    #banks = soup.find_all('tr', {'class': ['wi', 'wigr1']})
     value = soup.find_all('td', {'class': ['', 'top bot', 'b-k']})
     banks = soup.find_all('td', {'class': ['tbn top']})
-    print('значений', len(value))
-    print('банков', len(banks))
-
-
-
 
     val_list = list()
-    val_dict = dict()
+    best_dict = dict()
+
     for v in value:
         val_list.append(float(v.get_text().replace(',', '.')))
+
     for u in ubc:
         for val in val_list:
             if u == val:
-                print(val)
-                print(value[val_list.index(val)].parent('a', {'class': ['t-b']}))
-                val_dict[val] = value[val_list.index(val)].parent('a', {'class': ['t-b']})
-
-
-    print(val_dict)
-    print()
-
-    val_dict2 = dict()
-    for key, value in val_dict.items():
-
-
-        print(value)
+                bank_name = value[val_list.index(val)].parent('a', {'class': ['t-b']})
+                bank_name = str(bank_name)
+                bank_name = re.sub(r'.<a.*?>', '', bank_name).replace('</a>]', '')
+                #print(val)
+                #print(bank_name)
+                best_dict[val] = bank_name
 
 
 
+    print(best_dict)
+
+    db_bank = best_dict.get(ubc[0])
+    ds_bank = best_dict.get(ubc[1])
+    eb_bank = best_dict.get(ubc[2])
+    es_bank = best_dict.get(ubc[3])
+
+    d_b = ubc[0]
+    d_s = ubc[1]
+    e_b = ubc[2]
+    e_s = ubc[3]
 
 
-    #     print(set(upper_best_courses).intersection(set(best_values_in_bank)))
 
 
-# >>> a = [1, 3, 5, 7, 9]
-# >>> b = [2, 4, 6, 8, 10]
-# >>> list(zip(a, b))
-# [(1, 2), (3, 4), (5, 6), (7, 8), (9, 10)]
 
 
 
