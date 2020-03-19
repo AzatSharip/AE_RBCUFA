@@ -40,6 +40,19 @@ with open('cbrf.html', 'rb') as output_file:
     content = widget.find('div', {'class': 'content'})
     date = content.find_all('a')[1].get_text()
 
+    date_split = date.split('.')
+    month_dict = {'01' : 'января', '02' : 'февраля', '03' : 'марта', '04' : 'апреля', '05' : 'мая', '06' : 'июня',
+                  '07' : 'июля', '08' : 'августа', '09' : 'сентября', '10' : 'октября', '11' : 'ноября', '12' : 'декабря'
+                    }
+    day = date_split[0]
+    day = str(day)
+    month = month_dict[date_split[1]]
+    month = str(month)
+    date = day + ' ' + month
+
+    print(date)
+
+
 
 
 
@@ -70,13 +83,9 @@ with open('cbrf.html', 'rb') as output_file:
     euro_val = round(float(euro_val.replace(',', '.')), 2)
 
 
-
-
-
-
-    print('Курсы валют установленные ЦБ РФ на {}'.format(date))
-    print('Доллар -- Стоимость: {}, динамика: {}'.format(doll_val, doll_dynamics))
-    print('Евро -- Стоимость: {}, динамика: {}'.format(euro_val, euro_dynamics))
+    # print('Курсы валют установленные ЦБ РФ на {}'.format(date))
+    # print('Доллар -- Стоимость: {}, динамика: {}'.format(doll_val, doll_dynamics))
+    # print('Евро -- Стоимость: {}, динамика: {}'.format(euro_val, euro_dynamics))
 
 
 
