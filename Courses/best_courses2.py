@@ -36,6 +36,7 @@ with open('best2.html', 'rb') as output_file:
 
     for v in value:
         val_list.append(float(v.get_text().replace(',', '.')))
+        #print(v)
 
     for u in ubc:
         for val in val_list:
@@ -46,6 +47,8 @@ with open('best2.html', 'rb') as output_file:
                 #print(val)
                 #print(bank_name)
                 best_dict[val] = bank_name
+
+
 
 
 

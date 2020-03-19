@@ -14,14 +14,35 @@ with open('best.html', 'rb') as output_file:
     soup = BeautifulSoup(text, features="lxml")
 
 
+    exception_list = list()
+    #exception = soup.find_all('tr', {'class': 'wi bot'})
+    ex = soup.find_all('tr', {'class': ['wi', 'wigr1']})
 
-    exception = soup.find_all('tr', {'class': 'wi bot'})
-    # ex = exception.find('tr', {'class': ['wi', 'wigr1']})
-    #print(exception)
+#Лист исключения. Эти банки не берем, потому что у них есть условия и комиссии
+    for e in ex:
+        if 'комиссия' in e.text:
+            exc_bank = e.find_previous_sibling("tr")
+            exc_bank = exc_bank.find('a', {'class': ['t-b']})
+            exc_bank = str(exc_bank)
+            exc_bank = re.sub(r'<a.*?>', '', exc_bank).replace('</a>', '')
+            exception_list.append(exc_bank)
+        elif 'обмен только' in e.text:
+            ex_bank = e.find_previous_sibling("tr")
+            ex_bank = ex_bank.find('a', {'class': ['t-b']})
+            ex_bank = str(ex_bank)
+            ex_bank = re.sub(r'<a.*?>', '', ex_bank).replace('</a>', '')
+            exception_list.append(ex_bank)
+    #print(exception_list)
 
-    for e in exception.previous_siblings:
-        #print(e.next)
-        print(e)
+    value = soup.find_all('td', {'class': ['', 'top bot', 'b-k']}, {'rowspan': '2'})
+    banks = soup.find_all('td', {'class': ['tbn top']})
+
+    for v in value:
+        #print(v.find_previous_sibling("td"))
+        print(v)
+
+
+
 
 
 
