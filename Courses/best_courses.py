@@ -32,14 +32,112 @@ with open('best.html', 'rb') as output_file:
             ex_bank = str(ex_bank)
             ex_bank = re.sub(r'<a.*?>', '', ex_bank).replace('</a>', '')
             exception_list.append(ex_bank)
-    #print(exception_list)
+    print('Exception banks list:', exception_list)
 
-    value = soup.find_all('td', {'class': ['', 'top bot', 'b-k']}, {'rowspan': '2'})
-    banks = soup.find_all('td', {'class': ['tbn top']})
 
-    for v in value:
-        #print(v.find_previous_sibling("td"))
-        print(v)
+    banks = soup.find_all('a', {'class': ['t-b']})
+    print('Banks: ', len(banks))
+
+    # extra = soup.find_all(class_='upd-t top bot')
+    # for ex in extra:
+    #     ex.decompose()
+    #
+    # extra2 = soup.find_all(class_='tbn top bot')
+    # for ex in extra2:
+    #     ex.decompose()
+
+
+    #
+    # value_rowspan = soup.find_all('td', {'rowspan': '2'})
+    # value_top_bot = soup.find_all('td', {'class': 'top bot'})
+    # value = value_rowspan + value_top_bot
+    #
+    # print(len(value))
+    # for v in value:
+    #     print(v.parent.get_text())
+
+    banks = soup.find_all('tr', {'class': ['wi', 'wigr1']})
+    dec = soup.find(class_ = 'wigr1 bot')
+
+    elem = list()
+    for b in banks:
+        content = b.get_text()
+        content = content.strip(' ')
+        content = content.strip('\xa0')
+        content = content.split('\n')
+        elem.append(content)
+        # print(content)
+
+    [e.remove('') for e in elem]
+    elements = list()
+    for e in elem:
+        elements.append(e[0:5])
+
+#Очищаем список от шлака, оставляем только банки и цены покупки/продажи
+    for e in elements:
+        if len(e) < 5:
+            i = elements.index(e)
+            elements.pop(i)
+    elements.pop(0)
+
+#Удаляем из списка все банки - исключения
+    for ex in exception_list:
+        for e in elements:
+            if ex in e:
+                i = elements.index(e)
+                elements.pop(i)
+
+# Создаем словари, где ключи - название банка, а значения - стоимость продажи или покупки
+    elements2 = list()
+    db = dict()
+    ds = dict()
+    eb = dict()
+    es = dict()
+    for e in elements:
+        e = [e.replace(',', '.') for e in e]
+        db[float(e[1])] = e[0]
+        ds[float(e[2])] = e[0]
+        eb[float(e[3])] = e[0]
+        es[float(e[4])] = e[0]
+
+    doll_buy = min(db)
+    doll_buy_b = db[doll_buy]
+
+    doll_sale = max(ds)
+    doll_sale_b = ds[doll_sale]
+
+    euro_buy = min(eb)
+    euro_buy_b = eb[euro_buy]
+
+    euro_sale = max(es)
+    euro_sale_b = es[euro_sale]
+
+
+
+    print(doll_buy, doll_buy_b, doll_sale, doll_sale_b, euro_buy, euro_buy_b, euro_sale, euro_sale_b)
+
+
+
+
+
+
+    # print(doll_buy, doll_buy_bank, doll_sale)
+
+
+
+
+
+
+    #
+    # print(db)
+    # print(ds)
+    # print(eb)
+    # print(es)
+    # print(len(db))
+
+
+
+
 
 
 
