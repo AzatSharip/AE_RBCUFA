@@ -1,2 +1,2 @@
 chcp 1251
-"C:\Program Files\Adobe\Adobe After Effects CC 2018\Support Files\aerender.exe" -project D:\Personal\GitHub\AE\Courses\get_courses.aep -comp KURSI -OMtemplate KURSI -output O:\Графика на эфир\2020\март\20\KURSI_[#####].png
+"C:\Program Files\Adobe\Adobe After Effects CC 2018\Support Files\aerender.exe" -project D:\Personal\GitHub\AE\Courses\get_courses.aep -comp KURSI -OMtemplate KURSI -output D:\Personal\GitHub\AE\Courses\render\KURSI_[#####].png

@@ -23,7 +23,7 @@ def write_prop_to_bat():
 
         path_to_courses = ('O:\Графика на эфир\{}\март\{}'.format(year, day))
 
-        file.write('chcp 1251\n"C:\Program Files\Adobe\Adobe After Effects CC 2018\Support Files\\aerender.exe" -project D:\Personal\GitHub\AE\Courses\get_courses.aep -comp KURSI -OMtemplate KURSI -output {}\KURSI_[#####].png'.format(path_to_courses))
+        file.write('chcp 1251\n"C:\Program Files\Adobe\Adobe After Effects CC 2018\Support Files\\aerender.exe" -project D:\Personal\GitHub\AE\Courses\get_courses.aep -comp KURSI -OMtemplate KURSI -output D:\Personal\GitHub\AE\Courses\\render\KURSI_[#####].png')
 
 
 
