@@ -13,7 +13,7 @@ def write_data():
         file.write('var comp_euro = ["{}","{}","{}","{}"];'.format(best_courses.euro_buy, best_courses.euro_buy_b, best_courses.euro_sale, best_courses.euro_sale_b) + '\n')
 
 def write_prop_to_bat():
-    with open("run.bat", 'w') as file:
+    with open("runer.bat", 'w') as file:
         today = datetime.datetime.today()
         year = today.strftime("%Y")
         month = today.strftime("%m")
@@ -23,14 +23,14 @@ def write_prop_to_bat():
 
         path_to_courses = ('O:\Графика на эфир\{}\март\{}'.format(year, day))
 
-        file.write('chcp 1251\n"C:\Program Files\Adobe\Adobe After Effects CC 2018\Support Files\\aerender.exe" -project D:\Personal\GitHub\AE\Courses\get_courses.aep -comp KURSI -OMtemplate KURSI -output D:\Personal\GitHub\AE\Courses\\render\KURSI_[#####].png')
+        file.write('chcp 866\n"C:\Program Files\Adobe\Adobe After Effects CC 2018\Support Files\\aerender.exe" -project D:\Personal\GitHub\AE\Courses\get_courses.aep -comp KURSI -OMtemplate KURSI -output O:\Графика на эфир\\2020\март\\20\KURSI_[#####].png')
 
 
 
 
 
 def bat_run():
-    program = "run.bat"
+    program = "runer.bat"
     process = subprocess.Popen(program)
     exit_code = process.wait()
 
