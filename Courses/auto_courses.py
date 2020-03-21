@@ -3,6 +3,11 @@ import best_courses
 import subprocess
 import os
 import datetime
+import shutil
+import pathlib
+
+
+
 
 
 def write_data():
@@ -14,19 +19,7 @@ def write_data():
 
 def write_prop_to_bat():
     with open("runer.bat", 'w') as file:
-        today = datetime.datetime.today()
-        year = today.strftime("%Y")
-        month = today.strftime("%m")
-
-        day = today.strftime("%d")
-        # print(bin_name)
-
-        path_to_courses = ('O:\Графика на эфир\{}\март\{}'.format(year, day))
-
-        file.write('chcp 866\n"C:\Program Files\Adobe\Adobe After Effects CC 2018\Support Files\\aerender.exe" -project D:\Personal\GitHub\AE\Courses\get_courses.aep -comp KURSI -OMtemplate KURSI -output O:\Графика на эфир\\2020\март\\20\KURSI_[#####].png')
-
-
-
+        file.write('chcp 1251\n"C:\Program Files\Adobe\Adobe After Effects CC 2018\Support Files\\aerender.exe" -project D:\Personal\GitHub\AE\Courses\get_courses.aep -comp KURSI -OMtemplate KURSI -output D:\Personal\GitHub\AE\Courses\\render\KURSI_[#####].png')
 
 
 def bat_run():
@@ -39,6 +32,30 @@ def bat_run():
     else:
         print("Error!")
 
+def make_dir():
+    today = datetime.datetime.today()
+    year = today.strftime("%Y")
+    day = today.strftime("%d")
+
+    month = today.strftime("%m")
+    month_dict = {'01':'январь', '02':'февраль', '03':'март', '04':'апрель', '05':'май', '06':'июнь', '07':'июль', '08':'август', '09':'сентябрь', '10':'октябрь', '11':'ноябрь', '12':'декабрь'}
+    for keys in month_dict:
+        if month == keys:
+            month = month_dict[keys]
+
+
+    global path_in_office
+    path_in_office = 'O:\\Графика на эфир\\{}\\{}\\{}'.format(year, month, day)
+    try:
+        os.makedirs(path_in_office, exist_ok=True)
+    except:
+        pass
+
+
+def teleport_files():
+    for rootdir, dirs, files in os.walk("D:\Personal\GitHub\AE\Courses\\render"):
+        for file in files:
+            shutil.copy("D:\\Personal\\GitHub\\AE\\Courses\\render\\" + file, str(path_in_office))
 
 
 
@@ -46,3 +63,5 @@ write_data()
 print('Data.txt recorded successfully!')
 write_prop_to_bat()
 bat_run()
+make_dir()
+teleport_files()

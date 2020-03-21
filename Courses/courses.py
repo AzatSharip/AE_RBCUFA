@@ -4,7 +4,7 @@ from lxml import html
 from bs4 import BeautifulSoup
 import re
 
-url = 'https://www.cbr.ru/'
+url = 'http://old.cbr.ru/'
 r = requests.get(url)
 with open('cbrf.html', 'wb') as output_file:
     output_file.write(r.text.encode('utf8'))
