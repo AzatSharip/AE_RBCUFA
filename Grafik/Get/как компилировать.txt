@@ -1,1 +1,1 @@
-pyinstaller --onedir --onefile --name=downblog "D:\Personal\GitHub\AE\Grafik\Get\Grf.py"
+pyinstaller --onedir --onefile --name=downblog "D:\Personal\GitHub\AE\Courses\compiled\auto_courses.py"

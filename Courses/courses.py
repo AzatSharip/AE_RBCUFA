@@ -73,3 +73,6 @@ with open('cbrf.html', 'rb') as output_file:
 
     doll_val = round(float(doll_val.replace(',', '.')), 2)
     euro_val = round(float(euro_val.replace(',', '.')), 2)
+
+
+    print(doll_dynamics_arrow, euro_dynamics_arrow)
