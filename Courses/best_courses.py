@@ -79,15 +79,15 @@ with open('best.html', 'rb') as output_file:
         es[float(e[4])] = e[0]
 
     # Находим минимальные и максимальные значения ключей в словарях. А потом вытаскиваем по ключу название банка
-    doll_buy = min(db)
+    doll_buy = max(db)
     doll_buy_b = db[doll_buy]
 
-    doll_sale = max(ds)
+    doll_sale = min(ds)
     doll_sale_b = ds[doll_sale]
 
-    euro_buy = min(eb)
+    euro_buy = max(eb)
     euro_buy_b = eb[euro_buy]
 
-    euro_sale = max(es)
+    euro_sale = min(es)
     euro_sale_b = es[euro_sale]
     # print(doll_buy, doll_buy_b, doll_sale, doll_sale_b, euro_buy, euro_buy_b, euro_sale, euro_sale_b)
