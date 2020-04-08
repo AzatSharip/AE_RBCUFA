@@ -1,78 +1,85 @@
 import requests
 from bs4 import BeautifulSoup
+import datetime
 
 
-url = 'http://old.cbr.ru/'
+url = 'https://www.banki.ru/products/currency/cb/'
 r = requests.get(url)
-with open('cbrf.html', 'wb') as output_file:
+with open('banki.html', 'wb') as output_file:
     output_file.write(r.text.encode('utf8'))
 
-with open('cbrf.html', 'rb') as output_file:
+with open('banki.html', 'rb') as output_file:
     text = output_file.read()
 
     soup = BeautifulSoup(text, features="lxml")
 
-    doll = soup.find_all('div', {'class': 'w_data_wrap'})[0]
-    euro = soup.find_all('div', {'class': 'w_data_wrap'})[1]
+    doll = soup.find('tr', {'data-currency-code': 'USD'})
+    doll.td.decompose()
+    doll.td.decompose()
+    doll.td.decompose()
+    doll_val = doll.find_all('td')[0].get_text()
+    doll_val = float(doll_val)
+    doll_val = round(doll_val, 2)
 
-    # Находим динамику доллара и евро
-    doll_dynamics = doll.find('i').get('title')
-    euro_dynamics = euro.find('i').get('title')
+    euro = soup.find('tr', {'data-currency-code': 'EUR'})
+    euro.td.decompose()
+    euro.td.decompose()
+    euro.td.decompose()
+    euro_val = euro.find_all('td')[0].get_text()
+    euro_val = float(euro_val)
+    euro_val = round(euro_val, 2)
 
-    # Находим стоимость доллара
-    doll.ins.decompose()
-    doll.i.decompose()
-    for i in doll:
-        doll_val = i
+    doll_dynamics_dirty = doll.find('td', {'class': ['color-red', 'color-green']}).get_text()
+    euro_dynamics_dirty = euro.find('td', {'class': ['color-red', 'color-green']}).get_text()
 
-    # Находим стоимость евро
-    euro.ins.decompose()
-    euro.i.decompose()
-    for i in euro:
-        euro_val = i
+    def clear_dyn(dyn):
+        try:
+            if dyn.find('-'):
+                to_clear = dyn.find('-')
+                new_dyn = dyn[to_clear+1:]
+                new_dyn_rep = new_dyn.replace(',', '.')
+                new_dyn_float = float(new_dyn_rep)
+                new_dyn_float = round(new_dyn_float, 2)
+                arrow = 100
+                return new_dyn_float, arrow
+            elif dyn.find('+'):
+                to_clear = dyn.find('+')
+                new_dyn = dyn[to_clear+1:]
+                new_dyn_rep = new_dyn.replace(',', '.')
+                new_dyn_float = float(new_dyn_rep)
+                new_dyn_float = round(new_dyn_float, 2)
+                arrow = 0
+                return new_dyn_float, arrow
+        except: print('Something wrong with module CLEAR_DYN')
 
-    # Вычленяем дату
-    widget = soup.find('div', {'id': 'widget_exchange'})
-    content = widget.find('div', {'class': 'content'})
-    date = content.find_all('a')[1].get_text()
 
-    date_split = date.split('.')
-    month_dict = {'01' : 'января', '02' : 'февраля', '03' : 'марта', '04' : 'апреля', '05' : 'мая', '06' : 'июня',
-                  '07' : 'июля', '08' : 'августа', '09' : 'сентября', '10' : 'октября', '11' : 'ноября', '12' : 'декабря'
-                    }
-    day = date_split[0]
-    day = str(day)
-    month = month_dict[date_split[1]]
-    month = str(month)
+
+    doll_dynamics, doll_arrow = clear_dyn(doll_dynamics_dirty)
+    euro_dynamics, euro_arrow = clear_dyn(euro_dynamics_dirty)
+
+    today = datetime.datetime.today()
+    day = today.strftime("%d")
+    month = today.strftime("%m")
+    month_dict = {'01': 'января', '02': 'февраля', '03': 'марта', '04': 'апреля', '05': 'мая', '06': 'июня',
+                  '07': 'июля', '08': 'августа', '09': 'сентября', '10': 'октября', '11': 'ноября', '12': 'декабря'
+                  }
+    for keys in month_dict:
+        if month == keys:
+            month = month_dict[keys]
+
     date = day + ' ' + month
-    print("Делаем курсы валют на", date)
-
-    # В динамике роста/падения перед числом стоит "+" или "-". Очищаем от этих символов.
-    if doll_dynamics.startswith('-') == True:
-        doll_dynamics = doll_dynamics.replace('- ', '')
-        doll_dynamics = doll_dynamics.replace(',', '.')
-        doll_dynamics_arrow = 100
-    else:
-        doll_dynamics = doll_dynamics.replace('+ ', '')
-        doll_dynamics = doll_dynamics.replace(',', '.')
-        doll_dynamics_arrow = 0
 
 
-    if euro_dynamics.startswith('-') == True:
-        euro_dynamics = euro_dynamics.replace('- ', '')
-        euro_dynamics = euro_dynamics.replace(',', '.')
-        euro_dynamics_arrow = 100
-    else:
-        euro_dynamics = euro_dynamics.replace('+ ', '')
-        euro_dynamics = euro_dynamics.replace(',', '.')
-        euro_dynamics_arrow = 0
-
-    # Переводим во флоат и округляем
-    doll_dynamics = round(float(doll_dynamics), 2)
-    euro_dynamics = round(float(euro_dynamics), 2)
-
-    doll_val = round(float(doll_val.replace(',', '.')), 2)
-    euro_val = round(float(euro_val.replace(',', '.')), 2)
+    print(date)
+    print(doll_val)
+    print(doll_dynamics)
+    print(doll_arrow)
+    print()
+    print(euro_val)
+    print(euro_dynamics)
+    print(euro_arrow)
 
 
-    print(doll_dynamics_arrow, euro_dynamics_arrow)
+
+
+
