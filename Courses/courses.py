@@ -1,61 +1,51 @@
+# Курсы с новой версии оф. сайта ЦБ РФ. Рабочяя версия!
 import requests
 from bs4 import BeautifulSoup
 import datetime
 
 
-url = 'https://www.banki.ru/products/currency/cb/'
-r = requests.get(url)
-with open('banki.html', 'wb') as output_file:
-    output_file.write(r.text.encode('utf8'))
+# url = 'https://www.cbr.ru/'
+# r = requests.get(url)
+# with open('cbrf.html', 'wb') as output_file:
+#     output_file.write(r.text.encode('utf8'))
 
-with open('banki.html', 'rb') as output_file:
+with open('cbrf.html', 'rb') as output_file:
     text = output_file.read()
 
     soup = BeautifulSoup(text, features="lxml")
 
-    doll = soup.find('tr', {'data-currency-code': 'USD'})
-    doll.td.decompose()
-    doll.td.decompose()
-    doll.td.decompose()
-    doll_val = doll.find_all('td')[0].get_text()
-    doll_val = float(doll_val)
-    doll_val = round(doll_val, 2)
 
-    euro = soup.find('tr', {'data-currency-code': 'EUR'})
-    euro.td.decompose()
-    euro.td.decompose()
-    euro.td.decompose()
-    euro_val = euro.find_all('td')[0].get_text()
-    euro_val = float(euro_val)
-    euro_val = round(euro_val, 2)
+    all_doll_euro = soup.find_all('div', {'class': 'indicator_el_value mono-num'})[0].get_text()
 
-    doll_dynamics_dirty = doll.find('td', {'class': ['color-red', 'color-green']}).get_text()
-    euro_dynamics_dirty = euro.find('td', {'class': ['color-red', 'color-green']}).get_text()
+    pre_doll = float(soup.find_all('div', {'class': 'indicator_el_value mono-num'})[0].get_text().replace('₽', '').replace(',', '.'))
+    cur_doll = float(soup.find_all('div', {'class': 'indicator_el_value mono-num'})[1].get_text().replace('₽', '').replace(',', '.'))
+    pre_euro = float(soup.find_all('div', {'class': 'indicator_el_value mono-num'})[2].get_text().replace('₽', '').replace(',', '.'))
+    cur_euro = float(soup.find_all('div', {'class': 'indicator_el_value mono-num'})[3].get_text().replace('₽', '').replace(',', '.'))
 
-    def clear_dyn(dyn):
-        try:
-            if dyn.find('-'):
-                to_clear = dyn.find('-')
-                new_dyn = dyn[to_clear+1:]
-                new_dyn_rep = new_dyn.replace(',', '.')
-                new_dyn_float = float(new_dyn_rep)
-                new_dyn_float = round(new_dyn_float, 2)
-                arrow = 100
-                return new_dyn_float, arrow
-            elif dyn.find('+'):
-                to_clear = dyn.find('+')
-                new_dyn = dyn[to_clear+1:]
-                new_dyn_rep = new_dyn.replace(',', '.')
-                new_dyn_float = float(new_dyn_rep)
-                new_dyn_float = round(new_dyn_float, 2)
-                arrow = 0
-                return new_dyn_float, arrow
-        except: print('Something wrong with module CLEAR_DYN')
+    doll_dyn = round((cur_doll - pre_doll), 2)
+    if doll_dyn < 0:
+        doll_arrow = 100
+        doll_dynamics = doll_dyn * -1
+    elif doll_dyn > 0:
+        doll_arrow = 0
+    else:
+        print('No changes in doll dynamics!')
 
 
 
-    doll_dynamics, doll_arrow = clear_dyn(doll_dynamics_dirty)
-    euro_dynamics, euro_arrow = clear_dyn(euro_dynamics_dirty)
+    euro_dyn = round((cur_euro - pre_euro), 2)
+    if euro_dyn < 0:
+        euro_arrow = 100
+        euro_dynamics = euro_dyn * -1
+    elif euro_dyn > 0:
+        euro_arrow = 0
+    else:
+        print('No changes in euro dynamics!')
+
+
+
+    doll_val = round(cur_doll, 2)
+    euro_val = round(cur_euro, 2)
 
     today = datetime.datetime.today()
     day = today.strftime("%d")
@@ -71,15 +61,12 @@ with open('banki.html', 'rb') as output_file:
 
 
     print(date)
-    print(doll_val)
     print(doll_dynamics)
-    print(doll_arrow)
-    print()
-    print(euro_val)
     print(euro_dynamics)
+    print(doll_val)
+    print(euro_val)
+    print(doll_arrow)
     print(euro_arrow)
 
-
-
-
+    print('tech info:', pre_doll, pre_euro, cur_doll, cur_euro)
 
