@@ -90,4 +90,6 @@ with open('best.html', 'rb') as output_file:
 
     euro_sale = min(es)
     euro_sale_b = es[euro_sale]
-    # print(doll_buy, doll_buy_b, doll_sale, doll_sale_b, euro_buy, euro_buy_b, euro_sale, euro_sale_b)
+
+    if __name__ == "__main__":
+        print(doll_buy, doll_buy_b, doll_sale, doll_sale_b, euro_buy, euro_buy_b, euro_sale, euro_sale_b)
