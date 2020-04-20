@@ -75,7 +75,4 @@ with open('cbrf.html', 'rb') as output_file:
     euro_val = round(float(euro_val.replace(',', '.')), 2)
 
 
-
-    if __name__ == "__main__":
-        print(doll_dynamics_arrow, euro_dynamics_arrow)
-
+    print(doll_dynamics_arrow, euro_dynamics_arrow)

@@ -1,0 +1,12 @@
+Adobe After Effects v15.0.1 Windows 64 render log for project “get_courses.aep”
+
+Rendering started on 09.04.2020 at 16:18:03
+
+  09.04.2020 16:18:03: Starting composition “KURSI”.
+
+  Render Settings: Best Settings  Quality: Best  Resolution: Full  Size: 1280 x 720  Proxy Use: Use No Proxies  Effects: Current Settings  Disk Cache: Read Only  Color Depth: Current Settings  Frame Blending: On for Checked Layers  Field Render: Off  Pulldown: Off  Motion Blur: On for Checked Layers  Solos: Current Settings  Time Span: Work Area  Start: 0:00:00:00  End: 0:00:00:02  Duration: 0:00:00:03  Frame Rate: 25,00 (comp)  Guide Layers: All Off  Skip Existing Files: Off    Output Module: KURSI  Output To: D:\Personal\GitHub\AE\Courses\render\KURSI_[#####].png  Format: PNG  Output Info: -  Start Frame: 0  Output Audio: -  Channels: RGB + Alpha  Depth: Millions of Colors+  Color: Straight  Resize: -  Crop: -  Final Size: 1280 x 720  Profile:  -  Post-Render Action: None    0:00:00:00 (1): 0 Seconds  0:00:00:01 (2): 0 Seconds  0:00:00:02 (3): 0 Seconds  09.04.2020 16:18:04: Finished composition “KURSI”.
+
+
+  Total Time Elapsed: 1 Seconds
+Log closed on 09.04.2020 at 16:18:04
+
